@@ -1,0 +1,6 @@
+{
+  "appId": "com.whatsauto.smartai",
+  "appName": "WhatsAuto Smart AI",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
