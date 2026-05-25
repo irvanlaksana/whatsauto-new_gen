@@ -1,0 +1,7 @@
+[
+  { "row": 1, "keyword": "alamat", "reply": "Kantor Pusat kami beralamat di Gedung Tech Space Lt. 5, Jl. Sudirman No. 45, Jakarta Selatan.", "status": "Synced" },
+  { "row": 2, "keyword": "rekening", "reply": "Pembayaran resmi dapat ditransfer melalui Rekening Mandiri 123-000-888-999 a/n PT WhatsAuto Teknologi Indonesia.", "status": "Synced" },
+  { "row": 3, "keyword": "promo", "reply": "Mumpung hari ini, gunakan kode promo 'WAAUTO50' untuk tambahan diskon 50% untuk langganan tahunan!", "status": "Synced" },
+  { "row": 4, "keyword": "kontak", "reply": "Dapatkan hubungi layanan pelanggan manusia kami melalui telepon di (021) 8888-9999.", "status": "Synced" },
+  { "row": 5, "keyword": "fitur", "reply": "Fitur unggulan kami: Auto Response, Custom Delay, Group Whitelisting, and Spreadsheet Direct Sync.", "status": "Synced" }
+]

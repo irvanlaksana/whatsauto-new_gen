@@ -1,0 +1,62 @@
+[
+  {
+    "id": "rule_1",
+    "keyword": "Halo",
+    "matchType": "contains",
+    "replyText": "Halo! Terima kasih telah menghubungi kami. Ada yang bisa kami bantu?\n\nBalas dengan angka pilar berikut:\n1. Daftar Layanan & Produk\n2. Jam Operasional Agen\n3. Hubungi Admin Manusia\n4. Unduh Brosur PDF",
+    "isActive": true,
+    "delayMs": 0,
+    "interactive": {
+      "type": "menu",
+      "options": ["Layanan", "Jam Operasional", "Hubungi Admin", "Brosur"]
+    }
+  },
+  {
+    "id": "rule_2",
+    "keyword": "1",
+    "matchType": "exact",
+    "replyText": "Berikut adalah Layanan Utama kami:\n\n* WhatsAuto Suite (Auto-responder otomatis untuk 8+ platform chat)\n* Webhook & Zapier Integration\n* Google Sheets Sync Real-time\n* Kustomisasi Template Menu Dinamis",
+    "isActive": true,
+    "delayMs": 500,
+    "interactive": null
+  },
+  {
+    "id": "rule_3",
+    "keyword": "2",
+    "matchType": "exact",
+    "replyText": "Jam operasional kantor kami adalah Senin - Jumat pukul 08.00 - 17.00 WIB.\n\nNamun, asisten robot WhatsAuto ini aktif menjawab pesan Anda 24 jam sehari secara penuh!",
+    "isActive": true,
+    "delayMs": 0,
+    "interactive": null
+  },
+  {
+    "id": "rule_4",
+    "keyword": "3",
+    "matchType": "exact",
+    "replyText": "Baik, segera kami sambungkan Anda ke Agen Admin Manusia. Harap tunggu sebentar, pesan Anda sedang kami teruskan ke sistem antrean support.",
+    "isActive": true,
+    "delayMs": 1000,
+    "interactive": null
+  },
+  {
+    "id": "rule_5",
+    "keyword": "harga",
+    "matchType": "contains",
+    "replyText": "Paket Premium WhatsAuto dapat diaktifkan mulai dari Rp 75.000,-/bulan dengan akses penuh ke:\n- Unlimited Auto Replies\n- Sinkronisasi Google Sheets tanpa batas\n- Multi-device support\n\nKetik 'Beli' untuk memproses pesanan Anda.",
+    "isActive": true,
+    "delayMs": 0,
+    "interactive": {
+      "type": "buttons",
+      "options": ["Beli Sekarang", "Konsultasi Dulu"]
+    }
+  },
+  {
+    "id": "rule_6",
+    "keyword": "beli",
+    "matchType": "exact",
+    "replyText": "Terima kasih! Silakan lakukan pembayaran Anda melalui tautan berikut: https://whatsauto.ai/checkout?plan=premium\n\nSetelah melakukan pembayaran, akun Anda akan aktif secara langsung dalam 1 menit.",
+    "isActive": true,
+    "delayMs": 0,
+    "interactive": null
+  }
+]

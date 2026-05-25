@@ -1,0 +1,32 @@
+{
+  "isAutoReplyActive": true,
+  "apps": {
+    "whatsapp": true,
+    "wabusiness": true,
+    "telegram": true,
+    "messenger": false,
+    "instagram": true,
+    "signal": false,
+    "viber": false
+  },
+  "defaultReply": "Maaf, pesan Anda tidak dikenali. Ketik 'Halo' atau silakan periksa menu utama kami.",
+  "welcomeMessage": "Terima kasih telah menghubungi WhatsApp Bisnis kami! Silakan kirimkan pertanyaan Anda, asisten otomatis kami siap membantu.",
+  "cooldownMinutes": 2,
+  "replyDelayMs": 300,
+  "activeHours": {
+    "type": "Always",
+    "start": "08:00",
+    "end": "18:00"
+  },
+  "isGeminiActive": true,
+  "geminiMode": "fallback",
+  "geminiRecipientOption": "Everyone",
+  "geminiProfile": {
+    "ownerName": "Rian Kusuma",
+    "businessNiche": "Kuliner Martabak Manis Nusantara (Coklat Premium, Keju Lumer, Ketan Kelapa)",
+    "obstacleStatus": "Sedang melayani pembuat adonan di kitchen cabang utama",
+    "speakingStyle": "Sangat ramah, memakai sebutan 'Kakak', santai gaul kekinian khas anak muda Indonesia",
+    "promoInfo": "Beli martabak manis varian premium malam ini gratis minuman segar es teh sereh!",
+    "marketingGoal": "Ajak pesan instan via link WA/Gofood atau minta kesediaan menunggu maksimal 5 menit"
+  }
+}
