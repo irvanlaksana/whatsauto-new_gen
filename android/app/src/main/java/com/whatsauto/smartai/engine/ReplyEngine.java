@@ -104,7 +104,7 @@ public final class ReplyEngine {
             if (!matchesRule(rule, message.text)) continue;
 
             decision.shouldReply = true;
-            decision.source = "sheet".equals(rule.source) ? "sheet" : "rule";
+            decision.source = sourceLabel(rule.source);
             decision.reason = "matched";
             decision.delayMs = rule.delayMs != null ? rule.delayMs : program.replyDelayMs;
             decision.text = render(rule.reply, message, rule.extra, now);
@@ -137,6 +137,12 @@ public final class ReplyEngine {
         decision.text = "";
         decision.delayMs = 0L;
         return decision;
+    }
+
+    /** Label sumber aturan: sheet (spreadsheet), backend (web admin), atau rule (manual). */
+    static String sourceLabel(String source) {
+        if ("sheet".equals(source) || "backend".equals(source)) return source;
+        return "rule";
     }
 
     private static int matchRank(String matchType) {

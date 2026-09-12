@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WhatsAuto — Admin Parameter</title>
+    <style>
+      :root {
+        --bg: #f1f5f9;
+        --card: #ffffff;
+        --line: #e2e8f0;
+        --ink: #0f172a;
+        --muted: #64748b;
+        --accent: #059669;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font: 14px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      }
+      header {
+        background: var(--card);
+        border-bottom: 1px solid var(--line);
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+      }
+      header h1 { font-size: 15px; margin: 0; }
+      header .sub { color: var(--muted); font-size: 12px; }
+      main { max-width: 1000px; margin: 0 auto; padding: 18px; display: grid; gap: 16px; }
+      .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+      .card h2 { font-size: 13px; margin: 0 0 10px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+      .grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      label { display: grid; gap: 4px; font-size: 12px; font-weight: 600; color: var(--muted); }
+      input, select, textarea {
+        border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px;
+        font: inherit; color: var(--ink); background: #fff; width: 100%;
+      }
+      textarea { min-height: 64px; resize: vertical; }
+      button {
+        border: 0; border-radius: 10px; padding: 9px 14px; font: inherit; font-weight: 700;
+        background: var(--accent); color: #fff; cursor: pointer;
+      }
+      button.ghost { background: #fff; color: #334155; border: 1px solid var(--line); }
+      button.danger { background: #fff1f2; color: #e11d48; border: 1px solid #fecdd3; }
+      button:disabled { opacity: .5; cursor: not-allowed; }
+      table { width: 100%; border-collapse: collapse; font-size: 13px; }
+      th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+      th { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+      .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+      .ok { background: #d1fae5; color: #047857; }
+      .off { background: #e2e8f0; color: #475569; }
+      #status { font-size: 12px; color: var(--muted); }
+      .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+      code { background: #f1f5f9; padding: 1px 5px; border-radius: 6px; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>WhatsAuto — Admin Parameter</h1>
+        <div class="sub">Sumber balasan untuk aplikasi Android (alternatif Google Spreadsheet)</div>
+      </div>
+      <div style="margin-left: auto" class="row">
+        <span id="status">memuat…</span>
+        <button class="ghost" id="reload">Muat ulang</button>
+        <button id="save">Simpan semua</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>Parameter umum</h2>
+        <div class="grid">
+          <label>Auto-reply aktif
+            <select id="autoReplyEnabled"><option value="true">true</option><option value="false">false</option></select>
+          </label>
+          <label>Kebijakan kontak
+            <select id="contactPolicy">
+              <option value="everyone">everyone</option>
+              <option value="whitelist">whitelist</option>
+              <option value="exclude_blacklist">exclude_blacklist</option>
+            </select>
+          </label>
+          <label>Cooldown (menit)<input id="cooldownMinutes" type="number" min="0" step="1" /></label>
+          <label>Jeda ketik (ms)<input id="replyDelayMs" type="number" min="0" step="100" /></label>
+          <label>Jam aktif
+            <select id="hoursMode"><option value="always">always</option><option value="custom">custom</option></select>
+          </label>
+          <label>Mulai<input id="hoursStart" type="time" /></label>
+          <label>Selesai<input id="hoursEnd" type="time" /></label>
+          <label>Balas grup
+            <select id="replyToGroups"><option value="false">false</option><option value="true">true</option></select>
+          </label>
+        </div>
+        <div class="grid" style="margin-top: 10px">
+          <label>Channel dipantau (pisahkan koma)<input id="channels" placeholder="whatsapp,whatsapp_business" /></label>
+        </div>
+        <div class="grid" style="margin-top: 10px; grid-template-columns: 1fr">
+          <label>Pesan sambutan<textarea id="welcomeMessage"></textarea></label>
+          <label>Balasan default<textarea id="defaultReply"></textarea></label>
+        </div>
+        <p class="sub" style="color: var(--muted); font-size: 12px">
+          Variabel yang bisa dipakai: <code>{sender}</code> <code>{phone}</code> <code>{time}</code>
+          <code>{date}</code> <code>{received_msg}</code> dan kolom tambahan tiap aturan.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Aturan balasan</h2>
+        <div class="row" style="margin-bottom: 10px">
+          <input id="newKeyword" placeholder="keyword" style="max-width: 160px" />
+          <select id="newMatch" style="max-width: 130px">
+            <option value="contains">contains</option>
+            <option value="exact">exact</option>
+            <option value="regex">regex</option>
+          </select>
+          <input id="newReply" placeholder="balasan (boleh pakai {sender})" />
+          <button class="ghost" id="addRule">Tambah</button>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Aktif</th><th>Keyword</th><th>Tipe</th><th>Balasan</th><th>Prio</th><th></th></tr>
+          </thead>
+          <tbody id="ruleRows"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <script>
+      const api = (path, options) => fetch(path, options).then((r) => r.json());
+      let params = null;
+
+      const $ = (id) => document.getElementById(id);
+
+      function render() {
+        $("autoReplyEnabled").value = String(params.settings.autoReplyEnabled);
+        $("contactPolicy").value = params.settings.contactPolicy;
+        $("cooldownMinutes").value = params.settings.cooldownMinutes;
+        $("replyDelayMs").value = params.settings.replyDelayMs;
+        $("hoursMode").value = params.settings.activeHours.mode;
+        $("hoursStart").value = params.settings.activeHours.start;
+        $("hoursEnd").value = params.settings.activeHours.end;
+        $("replyToGroups").value = String(params.settings.replyToGroups);
+        $("channels").value = (params.settings.channels || []).join(",");
+        $("welcomeMessage").value = params.settings.welcomeMessage || "";
+        $("defaultReply").value = params.settings.defaultReply || "";
+
+        const tbody = $("ruleRows");
+        tbody.innerHTML = "";
+        params.rules.forEach((rule, index) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML =
+            '<td><input type="checkbox" data-i="' + index + '" data-f="active" ' + (rule.active ? "checked" : "") + " /></td>" +
+            '<td><input data-i="' + index + '" data-f="keyword" value="' + escapeAttr(rule.keyword) + '" /></td>' +
+            '<td><select data-i="' + index + '" data-f="matchType">' +
+              ["contains", "exact", "regex"].map((m) => '<option ' + (rule.matchType === m ? "selected" : "") + ">" + m + "</option>").join("") +
+            "</select></td>" +
+            '<td><textarea data-i="' + index + '" data-f="reply">' + escapeHtml(rule.reply) + "</textarea></td>" +
+            '<td><input data-i="' + index + '" data-f="priority" type="number" value="' + (rule.priority || 0) + '" style="width:70px" /></td>' +
+            '<td><button class="danger" data-del="' + index + '">Hapus</button></td>';
+          tbody.appendChild(tr);
+        });
+
+        tbody.querySelectorAll("input, select, textarea").forEach((el) => {
+          el.addEventListener("change", () => {
+            const i = Number(el.dataset.i);
+            const field = el.dataset.f;
+            let value = el.type === "checkbox" ? el.checked : el.value;
+            if (field === "priority") value = Number(value) || 0;
+            params.rules[i][field] = value;
+          });
+        });
+        tbody.querySelectorAll("[data-del]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            params.rules.splice(Number(btn.dataset.del), 1);
+            render();
+          });
+        });
+      }
+
+      function escapeHtml(value) {
+        return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      }
+      function escapeAttr(value) {
+        return escapeHtml(value).replace(/"/g, "&quot;");
+      }
+
+      function collect() {
+        params.settings.autoReplyEnabled = $("autoReplyEnabled").value === "true";
+        params.settings.contactPolicy = $("contactPolicy").value;
+        params.settings.cooldownMinutes = Number($("cooldownMinutes").value) || 0;
+        params.settings.replyDelayMs = Number($("replyDelayMs").value) || 0;
+        params.settings.activeHours = {
+          mode: $("hoursMode").value,
+          start: $("hoursStart").value || "08:00",
+          end: $("hoursEnd").value || "22:00",
+        };
+        params.settings.replyToGroups = $("replyToGroups").value === "true";
+        params.settings.channels = $("channels").value.split(",").map((s) => s.trim()).filter(Boolean);
+        params.settings.welcomeMessage = $("welcomeMessage").value;
+        params.settings.defaultReply = $("defaultReply").value;
+        return params;
+      }
+
+      async function load() {
+        $("status").textContent = "memuat…";
+        try {
+          params = await api("/api/params");
+          render();
+          $("status").textContent =
+            params.rules.length + " aturan · diperbarui " + new Date(params.updatedAt).toLocaleString("id-ID");
+        } catch (error) {
+          $("status").textContent = "gagal memuat: " + error.message;
+        }
+      }
+
+      $("reload").addEventListener("click", load);
+
+      $("addRule").addEventListener("click", () => {
+        const keyword = $("newKeyword").value.trim();
+        const reply = $("newReply").value.trim();
+        if (!keyword || !reply) {
+          $("status").textContent = "keyword dan balasan wajib diisi";
+          return;
+        }
+        params.rules.push({
+          id: "backend_" + Date.now(),
+          keyword,
+          reply,
+          matchType: $("newMatch").value,
+          active: true,
+          delayMs: null,
+          priority: 0,
+          channels: [],
+          source: "backend",
+          extra: {},
+        });
+        $("newKeyword").value = "";
+        $("newReply").value = "";
+        render();
+        $("status").textContent = "aturan ditambahkan — jangan lupa Simpan semua";
+      });
+
+      $("save").addEventListener("click", async () => {
+        $("save").disabled = true;
+        try {
+          const result = await api("/api/params", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(collect()),
+          });
+          params = result.params;
+          render();
+          $("status").textContent = "tersimpan · " + params.rules.length + " aturan · " +
+            new Date(params.updatedAt).toLocaleTimeString("id-ID");
+        } catch (error) {
+          $("status").textContent = "gagal menyimpan: " + error.message;
+        } finally {
+          $("save").disabled = false;
+        }
+      });
+
+      load();
+    </script>
+  </body>
+</html>

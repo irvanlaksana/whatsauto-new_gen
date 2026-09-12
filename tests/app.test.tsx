@@ -26,6 +26,18 @@ describe("App", () => {
     expect(screen.getByText("Sumber spreadsheet")).toBeTruthy();
   });
 
+  it("panel pengaturan menyediakan alamat backend web", async () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Pengaturan/i }));
+    await waitFor(() => expect(screen.getByText("Backend parameter (web)")).toBeTruthy());
+
+    const address = screen.getByPlaceholderText("http://192.168.1.10:8787");
+    expect(address).toBeTruthy();
+    expect(screen.getByRole("button", { name: /Tarik parameter/i })).toBeTruthy();
+    expect(screen.getByRole("button", { name: /Buka \/admin/i })).toBeTruthy();
+  });
+
   it("menjalankan simulator: pesan 'menu' dibalas aturan seed", async () => {
     render(<App />);
 

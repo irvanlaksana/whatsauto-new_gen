@@ -287,6 +287,33 @@ public class ReplyEngineTest {
     }
 
     @Test
+    public void backendRulesAreLabelledAsBackend() throws Exception {
+        ReplyProgram program = program();
+        ReplyProgram.Rule backendRule = new ReplyProgram.Rule();
+        backendRule.id = "backend_1";
+        backendRule.keyword = "kurir";
+        backendRule.matchType = "contains";
+        backendRule.reply = "Kurir tersedia";
+        backendRule.active = true;
+        backendRule.source = "backend";
+        program.rules.add(backendRule);
+
+        ReplyEngine.Decision decision =
+                ReplyEngine.decide(program, incoming("Rina", "kurir apa saja?"), at(23, 30), noCooldown());
+        assertTrue(decision.shouldReply);
+        assertEquals("backend", decision.source);
+        assertEquals("Kurir tersedia", decision.text);
+    }
+
+    @Test
+    public void sourceLabelMapsManualToRule() {
+        assertEquals("sheet", ReplyEngine.sourceLabel("sheet"));
+        assertEquals("backend", ReplyEngine.sourceLabel("backend"));
+        assertEquals("rule", ReplyEngine.sourceLabel("manual"));
+        assertEquals("rule", ReplyEngine.sourceLabel(null));
+    }
+
+    @Test
     public void identityKeyFallsBackToSenderName() {
         ReplyEngine.Incoming withPhone = incoming("Rina", "menu");
         withPhone.phone = "081234567890";

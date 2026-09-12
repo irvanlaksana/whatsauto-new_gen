@@ -172,7 +172,7 @@ export function decideReply(
     return {
       shouldReply: true,
       text: renderTemplate(rule.reply, message, extraFor(rule), now),
-      source: rule.source === "sheet" ? "sheet" : "rule",
+      source: rule.source === "manual" ? "rule" : rule.source,
       reason: "matched",
       ruleId: rule.id,
       delayMs: rule.delayMs ?? delay,

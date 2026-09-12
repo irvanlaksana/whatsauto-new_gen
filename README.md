@@ -29,8 +29,9 @@ Google Spreadsheet ──(CSV / Sheets API)──▶ Aplikasi Android
 
 ```bash
 npm install
-npm run dev          # http://localhost:5173
-npm test             # 27 unit test engine + parser sheet
+npm run dev          # UI aplikasi  → http://localhost:5173
+npm run server       # backend web  → http://localhost:8787 (admin: /admin)
+npm test             # 36 unit test (engine, parser sheet, backend, UI)
 npm run build        # typecheck + bundle produksi ke dist/
 ```
 
@@ -52,6 +53,36 @@ npm run android:apk    # gradlew assembleDebug → android/app/build/outputs/apk
 Atau lewat GitHub Actions: tab **Actions → Build Android APK → Run workflow**.
 Workflow menjalankan: unit test TypeScript → build web → `cap sync` →
 **unit test Java native** → `assembleDebug`.
+
+## Backend web untuk mengatur parameter
+
+Selain spreadsheet, parameter bisa diatur lewat backend web yang disediakan repo ini.
+
+```bash
+npm run server       # http://localhost:8787
+```
+
+| Alamat | Fungsi |
+| --- | --- |
+| `/admin` | Halaman admin (form parameter + tabel aturan, tanpa build step) |
+| `GET /api/health` | Cek backend hidup + jumlah aturan |
+| `GET /api/params` | Ambil seluruh parameter (settings, rules, whitelist, blacklist) |
+| `PUT /api/params` | Simpan seluruh parameter |
+| `POST /api/params/rules` | Tambah aturan |
+| `PATCH /api/params/rules/:id` | Ubah satu aturan (mis. `{"active": false}`) |
+| `DELETE /api/params/rules/:id` | Hapus aturan |
+| `POST /api/ai/reply` | Proxy Gemini (opsional, butuh `GEMINI_API_KEY`) |
+
+Parameter disimpan di `server-data/params.json` (gitignored).
+
+Di aplikasi, buka **Pengaturan → Backend parameter (web)**: isi **Alamat backend**
+(mis. `http://192.168.1.10:8787` saat HP dan komputer satu jaringan, atau URL publik
+backend kamu), lalu **Tes koneksi** → **Tarik parameter**. Tombol **Kirim parameter**
+mengirim isi aplikasi ke backend, dan **Buka /admin** membuka halaman admin.
+
+Urutan pemenang bila prioritas & tipe cocoknya sama: **backend → spreadsheet → manual**.
+
+Detail API: [`docs/BACKEND.md`](docs/BACKEND.md).
 
 ## Memakai spreadsheet sebagai sumber parameter
 

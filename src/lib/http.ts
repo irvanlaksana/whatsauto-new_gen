@@ -7,8 +7,10 @@ import { AutoReply, isNativePlatform, type HttpResponse } from "./native";
  * tidak terbentur CORS WebView saat mengambil Google Sheets. Di browser memakai
  * fetch biasa.
  */
+export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+
 export async function httpText(url: string, init?: {
-  method?: "GET" | "POST";
+  method?: HttpMethod;
   headers?: Record<string, string>;
   body?: string;
   timeoutMs?: number;

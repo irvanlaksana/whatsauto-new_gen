@@ -5,6 +5,7 @@ import type {
   LogEntry,
   ReplyProgram,
   ReplyRule,
+  BackendConfig,
   SheetSource,
   SyncState,
 } from "./types";
@@ -17,11 +18,24 @@ export interface PersistedState {
   settings: AppSettings;
   manualRules: ReplyRule[];
   sheetRules: ReplyRule[];
+  backendRules: ReplyRule[];
+  backend: BackendConfig;
   whitelist: ContactEntry[];
   blacklist: ContactEntry[];
   sheet: SheetSource;
   sync: SyncState;
   logs: LogEntry[];
+}
+
+export function defaultBackend(): BackendConfig {
+  return {
+    url: "",
+    autoPull: false,
+    pullIntervalMinutes: 5,
+    lastSyncAt: null,
+    lastStatus: "idle",
+    lastMessage: "Belum pernah terhubung ke backend.",
+  };
 }
 
 export function defaultSheetSource(): SheetSource {
@@ -41,6 +55,8 @@ export function defaultState(): PersistedState {
     settings: defaultSettings(),
     manualRules: seedRules(),
     sheetRules: [],
+    backendRules: [],
+    backend: defaultBackend(),
     whitelist: contacts.whitelist,
     blacklist: contacts.blacklist,
     sheet: defaultSheetSource(),
@@ -80,6 +96,8 @@ export function loadState(): PersistedState {
       },
       manualRules: pickArray<ReplyRule>(parsed.manualRules, base.manualRules),
       sheetRules: pickArray<ReplyRule>(parsed.sheetRules),
+      backendRules: pickArray<ReplyRule>(parsed.backendRules),
+      backend: mergeObject(base.backend, parsed.backend),
       whitelist: pickArray<ContactEntry>(parsed.whitelist, base.whitelist),
       blacklist: pickArray<ContactEntry>(parsed.blacklist, base.blacklist),
       sheet: mergeObject(base.sheet, parsed.sheet),
@@ -110,7 +128,9 @@ export function clearState(): void {
 export function buildProgramFromState(state: PersistedState): ReplyProgram {
   const program = emptyProgram();
   program.settings = state.settings;
-  program.rules = [...state.sheetRules, ...state.manualRules];
+  // Urutan menentukan pemenang saat prioritas & tipe cocoknya sama:
+  // backend (diatur admin via web) → spreadsheet → manual.
+  program.rules = [...state.backendRules, ...state.sheetRules, ...state.manualRules];
   program.whitelist = state.whitelist;
   program.blacklist = state.blacklist;
   return program;

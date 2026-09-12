@@ -74,7 +74,7 @@ export interface ReplyRule {
   priority: number;
   /** Kosong = berlaku untuk semua channel yang aktif. */
   channels: ChannelId[];
-  source: "sheet" | "manual";
+  source: "sheet" | "backend" | "manual";
   row?: number;
   note?: string;
   /** Kolom tambahan dari spreadsheet, dipakai sebagai variabel {nama_kolom}. */
@@ -128,6 +128,16 @@ export interface SheetSource {
   sheetsApiKey: string;
 }
 
+/** Konfigurasi backend web tempat parameter diatur. */
+export interface BackendConfig {
+  url: string;
+  autoPull: boolean;
+  pullIntervalMinutes: number;
+  lastSyncAt: string | null;
+  lastStatus: "idle" | "ok" | "error";
+  lastMessage: string;
+}
+
 export interface SyncState {
   lastSyncAt: string | null;
   lastStatus: "idle" | "ok" | "error";
@@ -159,6 +169,7 @@ export interface IncomingMessage {
 export type DecisionSource =
   | "rule"
   | "sheet"
+  | "backend"
   | "welcome"
   | "default"
   | "ai"

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { generateAiReply } from "../lib/ai";
+import { pingBackend, pullParams, pushParams } from "../lib/backend";
 import { decideReply, identityKey } from "../lib/engine";
 import { AutoReply, isNativePlatform } from "../lib/native";
 import { buildProgramFromState, loadState, saveState, type PersistedState } from "../lib/storage";
@@ -13,6 +14,7 @@ import type {
   ReplyDecision,
   ReplyProgram,
   ReplyRule,
+  BackendConfig,
   SyncState,
 } from "../lib/types";
 
@@ -68,6 +70,10 @@ export function useWhatsAuto() {
 
   const updateSheet = useCallback((patch: Partial<PersistedState["sheet"]>) => {
     setState((current) => ({ ...current, sheet: { ...current.sheet, ...patch } }));
+  }, []);
+
+  const updateBackend = useCallback((patch: Partial<BackendConfig>) => {
+    setState((current) => ({ ...current, backend: { ...current.backend, ...patch } }));
   }, []);
 
   const updateSync = useCallback((patch: Partial<SyncState>) => {
@@ -211,6 +217,79 @@ export function useWhatsAuto() {
     return () => clearInterval(timer);
   }, [state.sheet.autoSync, state.sheet.syncIntervalMinutes, state.sheet.url, syncNow]);
 
+  /** Cek koneksi ke backend web. */
+  const testBackend = useCallback(async () => {
+    const result = await pingBackend(state.backend);
+    updateBackend({
+      lastSyncAt: new Date().toISOString(),
+      lastStatus: result.ok ? "ok" : "error",
+      lastMessage: result.message,
+    });
+    notify(result.message);
+    return result;
+  }, [notify, state.backend, updateBackend]);
+
+  /** Tarik parameter (aturan + settings) dari backend web. */
+  const pullFromBackend = useCallback(
+    async (silent = false) => {
+      const result = await pullParams(state.backend);
+      if (!result.ok || !result.params) {
+        updateBackend({
+          lastSyncAt: new Date().toISOString(),
+          lastStatus: "error",
+          lastMessage: result.message,
+        });
+        if (!silent) notify(result.message);
+        return result;
+      }
+
+      const params = result.params;
+      setState((current) => ({
+        ...current,
+        backendRules: params.rules,
+        settings: params.settings,
+        whitelist: params.whitelist.length > 0 ? params.whitelist : current.whitelist,
+        blacklist: params.blacklist.length > 0 ? params.blacklist : current.blacklist,
+        backend: {
+          ...current.backend,
+          lastSyncAt: new Date().toISOString(),
+          lastStatus: "ok",
+          lastMessage: result.message,
+        },
+      }));
+      if (!silent) notify(result.message);
+      return result;
+    },
+    [notify, state.backend, updateBackend],
+  );
+
+  /** Kirim parameter lokal ke backend web. */
+  const pushToBackend = useCallback(async () => {
+    const result = await pushParams(state.backend, {
+      settings: state.settings,
+      rules: [...state.backendRules, ...state.manualRules],
+      whitelist: state.whitelist,
+      blacklist: state.blacklist,
+    });
+    updateBackend({
+      lastSyncAt: new Date().toISOString(),
+      lastStatus: result.ok ? "ok" : "error",
+      lastMessage: result.message,
+    });
+    notify(result.message);
+    return result;
+  }, [notify, state.backend, state.backendRules, state.manualRules, state.settings, state.whitelist, state.blacklist, updateBackend]);
+
+  // Auto-pull berkala dari backend.
+  useEffect(() => {
+    if (!state.backend.autoPull || !state.backend.url.trim()) return;
+    const minutes = Math.max(1, state.backend.pullIntervalMinutes);
+    const timer = setInterval(() => {
+      void pullFromBackend(true);
+    }, minutes * 60_000);
+    return () => clearInterval(timer);
+  }, [state.backend.autoPull, state.backend.pullIntervalMinutes, state.backend.url, pullFromBackend]);
+
   const addLog = useCallback((entry: Omit<LogEntry, "id" | "at">) => {
     setState((current) => ({
       ...current,
@@ -334,8 +413,12 @@ export function useWhatsAuto() {
     update,
     updateSettings,
     updateSheet,
+    updateBackend,
     updateSync,
     syncNow,
+    testBackend,
+    pullFromBackend,
+    pushToBackend,
     simulate,
     addRule,
     updateRule,
