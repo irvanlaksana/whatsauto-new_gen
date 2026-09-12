@@ -44,6 +44,14 @@ dependencies {
     implementation project(':capacitor-cordova-android-plugins')
 }
 
+// Tampilkan nama tiap unit test di log CI (dipakai untuk verifikasi dari luar Actions UI).
+tasks.withType(Test).configureEach {
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+}
+
 apply from: 'capacitor.build.gradle'
 
 try {

@@ -63,22 +63,25 @@ jobs:
           ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee -a gradle.log
           exit ${PIPESTATUS[0]}
 
-      - name: Publish failure log
-        if: failure()
+      # Artifact Actions disimpan di blob storage yang tidak selalu bisa diunduh,
+      # jadi hasil build (APK + log) juga dikirim lewat commit ke branch ini.
+      - name: Publish build output to branch
+        if: always()
         run: |
           mkdir -p ci-debug
-          {
-            echo "# Gradle log — run $GITHUB_RUN_ID ($GITHUB_SHA)"
-            echo
-            echo '```'
-            tail -n 250 android/gradle.log 2>/dev/null || echo "(log gradle tidak ditemukan)"
-            echo '```'
-          } > ci-debug/gradle.log
+          cp android/gradle.log ci-debug/gradle.log 2>/dev/null || echo "(log gradle tidak ada)" > ci-debug/gradle.log
+          if [ -f android/app/build/outputs/apk/debug/app-debug.apk ]; then
+            cp android/app/build/outputs/apk/debug/app-debug.apk ci-debug/whatsauto-sheet-sync-debug.apk
+            ls -l ci-debug/whatsauto-sheet-sync-debug.apk >> ci-debug/gradle.log
+          fi
           cat ci-debug/gradle.log >> "$GITHUB_STEP_SUMMARY"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f ci-debug/gradle.log
-          git commit -m "chore(ci): publish gradle failure log [skip ci]" || true
+          # Selaraskan dengan ujung branch (commit CI sebelumnya) sebelum commit.
+          git fetch origin "$GITHUB_REF_NAME" || true
+          git reset --hard FETCH_HEAD || true
+          git add -f ci-debug/gradle.log ci-debug/whatsauto-sheet-sync-debug.apk 2>/dev/null || git add -f ci-debug/gradle.log
+          git commit -m "chore(ci): publish APK + gradle log [skip ci]" || true
           git push origin "HEAD:$GITHUB_REF_NAME" || true
 
       - name: Upload Java unit test report
