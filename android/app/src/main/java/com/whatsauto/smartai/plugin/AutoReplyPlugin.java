@@ -167,7 +167,8 @@ public class AutoReplyPlugin extends Plugin {
             return;
         }
 
-        bridge.executeOnBackgroundThread(new Runnable() {
+        // bridge.execute() menjalankan Runnable di thread pool Capacitor (bukan UI thread).
+        bridge.execute(new Runnable() {
             @Override
             public void run() {
                 HttpURLConnection connection = null;
