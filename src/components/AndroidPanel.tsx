@@ -32,16 +32,16 @@ function StatusRow({
   action: () => void;
 }) {
   return (
-    <div className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 px-3 py-2.5">
+    <div className="flex items-center justify-between gap-3 rounded-xl border border-line px-3 py-2.5">
       <div className="flex items-start gap-2">
         {ok ? (
-          <CheckCircle2 size={16} className="mt-0.5 text-emerald-600" />
+          <CheckCircle2 size={16} className="mt-0.5 text-brand" />
         ) : (
-          <XCircle size={16} className="mt-0.5 text-rose-500" />
+          <XCircle size={16} className="mt-0.5 text-danger" />
         )}
         <div>
-          <p className="text-sm font-semibold text-slate-800">{label}</p>
-          <p className="text-[11px] text-slate-500">{hint}</p>
+          <p className="text-sm font-semibold text-ink">{label}</p>
+          <p className="text-[11px] text-ink-mute">{hint}</p>
         </div>
       </div>
       <Button variant={ok ? "ghost" : "primary"} onClick={action}>
@@ -59,7 +59,7 @@ export function AndroidPanel({ store }: { store: WhatsAutoStore }) {
       <div className="space-y-3">
         <Card>
           <SectionTitle icon={<Smartphone size={16} />} title="Mode browser" />
-          <p className="text-xs text-slate-600">
+          <p className="text-xs text-ink-soft">
             Halaman ini sedang dibuka di browser, jadi layanan otomatis Android tidak aktif. Semua fitur lain
             (sinkron spreadsheet, aturan, simulator) tetap berfungsi. Instal file APK di HP Android untuk
             mengaktifkan balasan otomatis.
@@ -67,10 +67,10 @@ export function AndroidPanel({ store }: { store: WhatsAutoStore }) {
         </Card>
         <Card>
           <SectionTitle title="Cara kerja di Android" />
-          <ol className="space-y-2 text-xs text-slate-600">
+          <ol className="space-y-2 text-xs text-ink-soft">
             {STEPS.map((step, index) => (
               <li key={step} className="flex gap-2">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[10px] font-bold text-emerald-700">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-soft text-[10px] font-bold text-brand">
                   {index + 1}
                 </span>
                 <span>{step}</span>
@@ -119,7 +119,7 @@ export function AndroidPanel({ store }: { store: WhatsAutoStore }) {
             {pushState === "pushing" ? "mengirim…" : pushState === "ok" ? "terkirim" : pushState === "error" ? "gagal" : "menunggu"}
           </Badge>
         </div>
-        {pushMessage ? <p className="mt-1.5 text-xs text-slate-600">{pushMessage}</p> : null}
+        {pushMessage ? <p className="mt-1.5 text-xs text-ink-soft">{pushMessage}</p> : null}
         <div className="mt-2 flex flex-wrap gap-2">
           <Button onClick={() => void store.pushProgram()}>
             <Send size={14} /> Kirim ulang ke Android
@@ -128,7 +128,7 @@ export function AndroidPanel({ store }: { store: WhatsAutoStore }) {
             <RefreshCw size={14} /> Muat ulang status
           </Button>
         </div>
-        <p className="mt-2 text-[11px] text-slate-500">
+        <p className="mt-2 text-[11px] text-ink-mute">
           Total {program.rules.length} aturan ({program.rules.filter((rule) => rule.active).length} aktif) akan
           dipakai layanan latar belakang, termasuk saat aplikasi ditutup.
         </p>
@@ -149,21 +149,21 @@ export function AndroidPanel({ store }: { store: WhatsAutoStore }) {
         ) : (
           <ul className="max-h-80 space-y-1.5 overflow-y-auto">
             {nativeEvents.map((event) => (
-              <li key={event.id} className="rounded-lg bg-slate-50 px-3 py-2 text-xs">
+              <li key={event.id} className="rounded-lg bg-surface-2 px-3 py-2 text-xs">
                 <div className="flex items-center gap-1.5">
                   {event.kind === "replied" ? (
-                    <Bot size={12} className="text-emerald-600" />
+                    <Bot size={12} className="text-brand" />
                   ) : event.kind === "error" ? (
-                    <XCircle size={12} className="text-rose-500" />
+                    <XCircle size={12} className="text-danger" />
                   ) : (
-                    <MousePointerClick size={12} className="text-slate-400" />
+                    <MousePointerClick size={12} className="text-ink-mute" />
                   )}
-                  <span className="font-semibold text-slate-700">{event.message}</span>
-                  <span className="ml-auto text-[10px] text-slate-400">
+                  <span className="font-semibold text-ink-soft">{event.message}</span>
+                  <span className="ml-auto text-[10px] text-ink-mute">
                     {new Date(event.at).toLocaleTimeString("id-ID", { hour12: false })}
                   </span>
                 </div>
-                {event.detail ? <p className="mt-0.5 text-slate-500">{event.detail}</p> : null}
+                {event.detail ? <p className="mt-0.5 text-ink-mute">{event.detail}</p> : null}
               </li>
             ))}
           </ul>

@@ -128,6 +128,7 @@ src/
     ai.ts            Gemini (opsional)
     native.ts        jembatan ke plugin Android
     http.ts          HTTP lintas platform (native = tanpa CORS)
+  index.css            token tema dark soft (ganti palet di sini saja)
   state/useWhatsAuto.ts  satu sumber kebenaran state aplikasi
   components/*.tsx       panel UI (Simulator, Spreadsheet, Aturan, Kontak, Android, Log, Pengaturan)
 tests/                   29 unit test TS: engine, parser sheet, smoke test UI (jsdom)
@@ -149,6 +150,17 @@ android/app/src/test/java/.../engine/ReplyEngineTest.java   17 unit test JVM (ta
 >
 > Unit test Java berjalan di JVM biasa (tanpa emulator) lewat `./gradlew testDebugUnitTest`
 > dan dieksekusi otomatis oleh CI.
+
+## Tema
+
+UI memakai tema **dark soft**: charcoal kebiruan dengan aksen sage, sand, dusty rose,
+dan dusty blue — semuanya rendah saturasi agar tidak mencolok. Semua warna berupa token
+di `src/index.css` (`--color-base`, `--color-surface`, `--color-line`, `--color-ink`,
+`--color-brand`, dst.), jadi mengganti palet cukup di satu file. Halaman admin
+(`server/admin.html`) memakai palet yang sama.
+
+`tests/theme.test.ts` menjaga agar tidak ada kelas warna terang yang menyusup kembali dan
+memastikan token benar-benar ter-generate di CSS hasil build.
 
 ## Catatan keamanan & batasan
 

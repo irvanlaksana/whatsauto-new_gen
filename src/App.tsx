@@ -35,28 +35,28 @@ export default function App() {
   const { program, permissions, state } = store;
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900">
-      <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <div className="min-h-screen bg-base text-ink">
+      <header className="sticky top-0 z-20 border-b border-line bg-surface/95 backdrop-blur">
         <div className="mx-auto flex max-w-4xl items-center gap-3 px-4 py-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-strong text-brand-ink">
             <MessageSquare size={18} />
           </div>
           <div className="min-w-0">
             <h1 className="truncate text-sm font-black tracking-tight">WhatsAuto Sheet Sync</h1>
-            <p className="truncate text-[11px] text-slate-500">
+            <p className="truncate text-[11px] text-ink-mute">
               Balasan otomatis WhatsApp dari parameter Google Spreadsheet
             </p>
           </div>
           <div className="ml-auto flex items-center gap-1.5">
             <span
               className={`h-2 w-2 rounded-full ${
-                program.settings.autoReplyEnabled ? "bg-emerald-500" : "bg-slate-300"
+                program.settings.autoReplyEnabled ? "bg-brand" : "bg-line"
               }`}
             />
-            <span className="text-[11px] font-semibold text-slate-600">
+            <span className="text-[11px] font-semibold text-ink-soft">
               {program.settings.autoReplyEnabled ? "Aktif" : "Nonaktif"}
             </span>
-            <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold uppercase text-slate-500">
+            <span className="rounded-full bg-surface-2 px-2 py-0.5 text-[10px] font-bold uppercase text-ink-mute">
               {store.native ? (permissions.notificationListener ? "Android siap" : "izin kurang") : "browser"}
             </span>
           </div>
@@ -71,7 +71,7 @@ export default function App() {
                 type="button"
                 onClick={() => setTab(item.id)}
                 className={`flex shrink-0 items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-semibold transition ${
-                  active ? "bg-slate-900 text-white" : "bg-white text-slate-600 ring-1 ring-slate-200"
+                  active ? "bg-brand-strong text-brand-ink" : "bg-surface-2 text-ink-soft ring-1 ring-line hover:text-ink"
                 }`}
               >
                 <Icon size={13} />
@@ -93,12 +93,12 @@ export default function App() {
       </main>
 
       {store.toast ? (
-        <div className="fixed bottom-4 left-1/2 z-30 w-[min(92vw,420px)] -translate-x-1/2 rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-semibold text-white shadow-lg">
+        <div className="fixed bottom-4 left-1/2 z-30 w-[min(92vw,420px)] -translate-x-1/2 rounded-xl bg-surface-3 px-4 py-2.5 text-xs font-semibold text-brand-ink shadow-lg">
           {store.toast}
         </div>
       ) : null}
 
-      <footer className="mx-auto max-w-4xl px-4 pb-6 text-center text-[11px] text-slate-400">
+      <footer className="mx-auto max-w-4xl px-4 pb-6 text-center text-[11px] text-ink-mute">
         {state.sheetRules.length} aturan sheet · {state.manualRules.length} aturan manual · v1.0
       </footer>
     </div>

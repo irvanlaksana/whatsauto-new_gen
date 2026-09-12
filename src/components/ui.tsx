@@ -11,7 +11,7 @@ export function Card({
 }) {
   return (
     <section
-      className={`rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm shadow-slate-200/50 ${className}`}
+      className={`rounded-2xl border border-line bg-surface p-4 shadow-sm shadow-black/20 ${className}`}
     >
       {children}
     </section>
@@ -29,10 +29,10 @@ export function SectionTitle({
 }) {
   return (
     <div className="mb-3 flex items-start gap-2">
-      {icon ? <span className="mt-0.5 text-emerald-600">{icon}</span> : null}
+      {icon ? <span className="mt-0.5 text-brand">{icon}</span> : null}
       <div>
-        <h2 className="text-sm font-bold tracking-tight text-slate-900">{title}</h2>
-        {subtitle ? <p className="text-xs text-slate-500">{subtitle}</p> : null}
+        <h2 className="text-sm font-bold tracking-tight text-ink">{title}</h2>
+        {subtitle ? <p className="text-xs text-ink-mute">{subtitle}</p> : null}
       </div>
     </div>
   );
@@ -54,10 +54,10 @@ export function Button({
   className?: string;
 }) {
   const styles: Record<string, string> = {
-    primary: "bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-slate-300",
-    soft: "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 disabled:text-slate-400",
-    ghost: "bg-white text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50 disabled:text-slate-300",
-    danger: "bg-rose-50 text-rose-600 hover:bg-rose-100 disabled:text-rose-300",
+    primary: "bg-brand-strong text-brand-ink hover:bg-brand-hover disabled:bg-line disabled:text-ink-mute",
+    soft: "bg-brand-soft text-brand hover:bg-brand-soft disabled:text-ink-mute",
+    ghost: "bg-surface-2 text-ink-soft ring-1 ring-line hover:bg-surface-3 hover:text-ink disabled:text-ink-mute",
+    danger: "bg-danger-soft text-danger hover:bg-danger-soft disabled:text-danger",
   };
   return (
     <button
@@ -82,15 +82,15 @@ export function Field({
 }) {
   return (
     <label className="block space-y-1">
-      <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">{label}</span>
+      <span className="text-[11px] font-semibold uppercase tracking-wide text-ink-mute">{label}</span>
       {children}
-      {hint ? <span className="block text-[11px] text-slate-400">{hint}</span> : null}
+      {hint ? <span className="block text-[11px] text-ink-mute">{hint}</span> : null}
     </label>
   );
 }
 
 export const inputClass =
-  "w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 outline-none placeholder:text-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100";
+  "w-full rounded-xl border border-line bg-surface-2 px-3 py-2 text-sm text-ink outline-none placeholder:text-ink-mute transition focus:border-brand focus:ring-2 focus:ring-brand/25";
 
 export function Toggle({
   checked,
@@ -107,19 +107,19 @@ export function Toggle({
     <button
       type="button"
       onClick={() => onChange(!checked)}
-      className="flex w-full items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-left transition hover:border-slate-300"
+      className="flex w-full items-center justify-between gap-3 rounded-xl border border-line bg-surface px-3 py-2.5 text-left transition hover:border-line-strong"
     >
       <span>
-        <span className="block text-sm font-semibold text-slate-800">{label}</span>
-        {description ? <span className="block text-[11px] text-slate-500">{description}</span> : null}
+        <span className="block text-sm font-semibold text-ink">{label}</span>
+        {description ? <span className="block text-[11px] text-ink-mute">{description}</span> : null}
       </span>
       <span
         className={`relative h-6 w-11 shrink-0 rounded-full transition ${
-          checked ? "bg-emerald-500" : "bg-slate-300"
+          checked ? "bg-brand" : "bg-line"
         }`}
       >
         <span
-          className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${
+          className={`absolute top-0.5 h-5 w-5 rounded-full bg-brand-ink shadow transition-all ${
             checked ? "left-[22px]" : "left-0.5"
           }`}
         />
@@ -136,11 +136,11 @@ export function Badge({
   tone?: "slate" | "emerald" | "amber" | "rose" | "sky";
 }) {
   const tones: Record<string, string> = {
-    slate: "bg-slate-100 text-slate-600",
-    emerald: "bg-emerald-100 text-emerald-700",
-    amber: "bg-amber-100 text-amber-700",
-    rose: "bg-rose-100 text-rose-600",
-    sky: "bg-sky-100 text-sky-700",
+    slate: "bg-surface-2 text-ink-soft",
+    emerald: "bg-brand-soft text-brand",
+    amber: "bg-warn-soft text-warn",
+    rose: "bg-danger-soft text-danger",
+    sky: "bg-info-soft text-info",
   };
   return (
     <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${tones[tone]}`}>
@@ -151,9 +151,9 @@ export function Badge({
 
 export function EmptyState({ title, hint }: { title: string; hint?: string }) {
   return (
-    <div className="rounded-xl border border-dashed border-slate-200 px-4 py-6 text-center">
-      <p className="text-sm font-semibold text-slate-600">{title}</p>
-      {hint ? <p className="mt-1 text-xs text-slate-400">{hint}</p> : null}
+    <div className="rounded-xl border border-dashed border-line px-4 py-6 text-center">
+      <p className="text-sm font-semibold text-ink-soft">{title}</p>
+      {hint ? <p className="mt-1 text-xs text-ink-mute">{hint}</p> : null}
     </div>
   );
 }

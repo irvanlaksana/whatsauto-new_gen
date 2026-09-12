@@ -70,9 +70,9 @@ export function LogsPanel({ store }: { store: WhatsAutoStore }) {
             { label: "Dibalas", value: stats.replied },
             { label: "Dilewati", value: stats.skipped },
           ].map((item) => (
-            <div key={item.label} className="rounded-xl bg-slate-50 px-2 py-3">
-              <p className="text-xl font-black text-slate-900">{item.value}</p>
-              <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">{item.label}</p>
+            <div key={item.label} className="rounded-xl bg-surface-2 px-2 py-3">
+              <p className="text-xl font-black text-ink">{item.value}</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-mute">{item.label}</p>
             </div>
           ))}
         </div>
@@ -108,20 +108,20 @@ export function LogsPanel({ store }: { store: WhatsAutoStore }) {
         ) : (
           <ul className="max-h-[420px] space-y-2 overflow-y-auto">
             {logs.map((log) => (
-              <li key={log.id} className="rounded-xl border border-slate-200 p-3 text-xs">
+              <li key={log.id} className="rounded-xl border border-line p-3 text-xs">
                 <div className="flex flex-wrap items-center gap-1.5">
-                  <span className="font-bold text-slate-800">{log.sender || log.phone}</span>
+                  <span className="font-bold text-ink">{log.sender || log.phone}</span>
                   <Badge tone={SOURCE_TONE[log.source] ?? "slate"}>{log.source}</Badge>
-                  <span className="text-slate-400">{log.channel}</span>
-                  <span className="ml-auto text-[10px] text-slate-400">
+                  <span className="text-ink-mute">{log.channel}</span>
+                  <span className="ml-auto text-[10px] text-ink-mute">
                     {new Date(log.at).toLocaleString("id-ID", { hour12: false })}
                   </span>
                 </div>
-                <p className="mt-1.5 text-slate-600">
-                  <span className="font-semibold text-slate-500">Masuk:</span> {log.incoming}
+                <p className="mt-1.5 text-ink-soft">
+                  <span className="font-semibold text-ink-mute">Masuk:</span> {log.incoming}
                 </p>
-                <p className="mt-0.5 whitespace-pre-wrap text-slate-800">
-                  <span className="font-semibold text-emerald-700">Balas:</span>{" "}
+                <p className="mt-0.5 whitespace-pre-wrap text-ink">
+                  <span className="font-semibold text-brand">Balas:</span>{" "}
                   {log.outgoing || `— ${REASON_LABEL[log.reason]}`}
                 </p>
               </li>

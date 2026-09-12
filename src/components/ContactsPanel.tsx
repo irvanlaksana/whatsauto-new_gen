@@ -45,11 +45,11 @@ export function ContactsPanel({ store }: { store: WhatsAutoStore }) {
         {entries.map((entry) => (
           <li
             key={entry.id}
-            className="flex items-center justify-between gap-2 rounded-lg bg-slate-50 px-3 py-2 text-xs"
+            className="flex items-center justify-between gap-2 rounded-lg bg-surface-2 px-3 py-2 text-xs"
           >
             <span className="min-w-0">
-              <span className="block truncate font-semibold text-slate-700">{entry.name || entry.phone}</span>
-              <span className="block truncate text-slate-500">
+              <span className="block truncate font-semibold text-ink-soft">{entry.name || entry.phone}</span>
+              <span className="block truncate text-ink-mute">
                 {entry.phone}
                 {entry.note ? ` · ${entry.note}` : ""}
               </span>
@@ -57,7 +57,7 @@ export function ContactsPanel({ store }: { store: WhatsAutoStore }) {
             <button
               type="button"
               onClick={() => removeContact(key, entry.id)}
-              className="rounded-lg bg-white p-1.5 text-rose-500 ring-1 ring-slate-200 hover:bg-rose-50"
+              className="rounded-lg bg-surface p-1.5 text-danger ring-1 ring-line hover:bg-danger-soft"
             >
               <Trash2 size={12} />
             </button>
@@ -79,12 +79,12 @@ export function ContactsPanel({ store }: { store: WhatsAutoStore }) {
               onClick={() => updateSettings({ contactPolicy: policy.id })}
               className={`w-full rounded-xl border px-3 py-2.5 text-left transition ${
                 state.settings.contactPolicy === policy.id
-                  ? "border-emerald-500 bg-emerald-50"
-                  : "border-slate-200 hover:border-slate-300"
+                  ? "border-brand bg-brand-soft"
+                  : "border-line hover:border-line-strong"
               }`}
             >
-              <span className="block text-sm font-semibold text-slate-800">{policy.label}</span>
-              <span className="block text-[11px] text-slate-500">{policy.desc}</span>
+              <span className="block text-sm font-semibold text-ink">{policy.label}</span>
+              <span className="block text-[11px] text-ink-mute">{policy.desc}</span>
             </button>
           ))}
         </div>
@@ -100,7 +100,7 @@ export function ContactsPanel({ store }: { store: WhatsAutoStore }) {
                 type="button"
                 onClick={() => setList(option)}
                 className={`rounded-full px-3 py-1 text-[11px] font-semibold ${
-                  list === option ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600"
+                  list === option ? "bg-surface-3 text-brand-ink" : "bg-surface-2 text-ink-soft"
                 }`}
               >
                 {option}

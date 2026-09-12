@@ -5,13 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>WhatsAuto — Admin Parameter</title>
     <style>
+      /* Tema dark soft — palet sama dengan aplikasi (src/index.css). */
       :root {
-        --bg: #f1f5f9;
-        --card: #ffffff;
-        --line: #e2e8f0;
-        --ink: #0f172a;
-        --muted: #64748b;
-        --accent: #059669;
+        --bg: #14161a;
+        --card: #1b1e24;
+        --card-2: #21252c;
+        --line: #2f343d;
+        --line-strong: #3c434e;
+        --ink: #d9dee6;
+        --muted: #757e8c;
+        --accent: #86b0a2;
+        --accent-strong: #3a5c53;
+        --accent-ink: #e7efeb;
+        --danger: #c98f8f;
+        color-scheme: dark;
       }
       * { box-sizing: border-box; }
       body {
@@ -41,25 +48,29 @@
       label { display: grid; gap: 4px; font-size: 12px; font-weight: 600; color: var(--muted); }
       input, select, textarea {
         border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px;
-        font: inherit; color: var(--ink); background: #fff; width: 100%;
+        font: inherit; color: var(--ink); background: var(--card-2); width: 100%;
       }
+      input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
       textarea { min-height: 64px; resize: vertical; }
       button {
         border: 0; border-radius: 10px; padding: 9px 14px; font: inherit; font-weight: 700;
-        background: var(--accent); color: #fff; cursor: pointer;
+        background: var(--accent-strong); color: var(--accent-ink); cursor: pointer;
       }
-      button.ghost { background: #fff; color: #334155; border: 1px solid var(--line); }
-      button.danger { background: #fff1f2; color: #e11d48; border: 1px solid #fecdd3; }
+      button:hover { background: #466b62; }
+      button.ghost { background: var(--card-2); color: var(--ink); border: 1px solid var(--line); }
+      button.ghost:hover { background: var(--line); }
+      button.danger { background: #2e2224; color: var(--danger); border: 1px solid #453033; }
+      button.danger:hover { background: #3a2a2c; }
       button:disabled { opacity: .5; cursor: not-allowed; }
       table { width: 100%; border-collapse: collapse; font-size: 13px; }
       th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
       th { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
       .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; }
-      .ok { background: #d1fae5; color: #047857; }
-      .off { background: #e2e8f0; color: #475569; }
+      .ok { background: #23312e; color: var(--accent); }
+      .off { background: var(--card-2); color: var(--muted); }
       #status { font-size: 12px; color: var(--muted); }
       .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-      code { background: #f1f5f9; padding: 1px 5px; border-radius: 6px; }
+      code { background: var(--card-2); padding: 1px 5px; border-radius: 6px; color: var(--accent); }
     </style>
   </head>
   <body>

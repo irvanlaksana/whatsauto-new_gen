@@ -105,22 +105,22 @@ export function RulesPanel({ store }: { store: WhatsAutoStore }) {
         ) : (
           <ul className="space-y-2">
             {state.manualRules.map((rule) => (
-              <li key={rule.id} className="rounded-xl border border-slate-200 p-3">
+              <li key={rule.id} className="rounded-xl border border-line p-3">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-1.5">
-                      <span className="truncate text-sm font-bold text-slate-800">{rule.keyword}</span>
+                      <span className="truncate text-sm font-bold text-ink">{rule.keyword}</span>
                       <Badge tone="slate">{rule.matchType}</Badge>
                       {rule.priority !== 0 ? <Badge tone="sky">prio {rule.priority}</Badge> : null}
                     </div>
-                    <p className="mt-1 text-xs whitespace-pre-wrap text-slate-600">{rule.reply}</p>
+                    <p className="mt-1 text-xs whitespace-pre-wrap text-ink-soft">{rule.reply}</p>
                   </div>
                   <div className="flex shrink-0 flex-col items-end gap-1">
                     <button
                       type="button"
                       onClick={() => updateRule(rule.id, { active: !rule.active })}
                       className={`rounded-lg px-2 py-1 text-[10px] font-bold uppercase ${
-                        rule.active ? "bg-emerald-100 text-emerald-700" : "bg-slate-100 text-slate-500"
+                        rule.active ? "bg-brand-soft text-brand" : "bg-surface-2 text-ink-mute"
                       }`}
                     >
                       {rule.active ? "aktif" : "off"}
@@ -129,14 +129,14 @@ export function RulesPanel({ store }: { store: WhatsAutoStore }) {
                       <button
                         type="button"
                         onClick={() => startEdit(rule)}
-                        className="rounded-lg bg-slate-100 p-1.5 text-slate-500 hover:bg-slate-200"
+                        className="rounded-lg bg-surface-2 p-1.5 text-ink-mute hover:bg-surface-3"
                       >
                         <Pencil size={12} />
                       </button>
                       <button
                         type="button"
                         onClick={() => removeRule(rule.id)}
-                        className="rounded-lg bg-rose-50 p-1.5 text-rose-500 hover:bg-rose-100"
+                        className="rounded-lg bg-danger-soft p-1.5 text-danger hover:bg-danger-soft"
                       >
                         <Trash2 size={12} />
                       </button>
@@ -160,10 +160,10 @@ export function RulesPanel({ store }: { store: WhatsAutoStore }) {
             {state.sheetRules.map((rule) => (
               <li
                 key={rule.id}
-                className="flex items-center justify-between gap-2 rounded-lg bg-slate-50 px-3 py-2 text-xs"
+                className="flex items-center justify-between gap-2 rounded-lg bg-surface-2 px-3 py-2 text-xs"
               >
-                <span className="truncate font-semibold text-slate-700">{rule.keyword}</span>
-                <span className="max-w-[60%] truncate text-slate-500">{rule.reply}</span>
+                <span className="truncate font-semibold text-ink-soft">{rule.keyword}</span>
+                <span className="max-w-[60%] truncate text-ink-mute">{rule.reply}</span>
               </li>
             ))}
           </ul>

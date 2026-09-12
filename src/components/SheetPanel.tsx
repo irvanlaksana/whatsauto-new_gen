@@ -131,13 +131,13 @@ export function SheetPanel({ store }: { store: WhatsAutoStore }) {
           <Badge tone={sync.lastStatus === "error" ? "rose" : sync.lastStatus === "ok" ? "emerald" : "slate"}>
             {sync.lastStatus === "error" ? "gagal" : sync.lastStatus === "ok" ? "sukses" : "menunggu"}
           </Badge>
-          <span className="text-slate-500">Terakhir: {formatWhen(sync.lastSyncAt)}</span>
-          <span className="text-slate-400">·</span>
-          <span className="text-slate-500">{sync.rowCount} baris terbaca</span>
+          <span className="text-ink-mute">Terakhir: {formatWhen(sync.lastSyncAt)}</span>
+          <span className="text-ink-mute">·</span>
+          <span className="text-ink-mute">{sync.rowCount} baris terbaca</span>
         </div>
-        <p className="mt-1.5 text-xs text-slate-600">{sync.lastMessage}</p>
+        <p className="mt-1.5 text-xs text-ink-soft">{sync.lastMessage}</p>
         {sheetRules.length > 0 ? (
-          <p className="mt-1 flex items-center gap-1 text-xs font-semibold text-emerald-700">
+          <p className="mt-1 flex items-center gap-1 text-xs font-semibold text-brand">
             <CheckCircle2 size={13} /> {sheetRules.length} aturan dari sheet siap dipakai engine.
           </p>
         ) : null}
@@ -151,9 +151,9 @@ export function SheetPanel({ store }: { store: WhatsAutoStore }) {
             hint="Isi link sheet lalu tekan “Sinkron sekarang”."
           />
         ) : (
-          <div className="max-h-72 overflow-y-auto rounded-xl border border-slate-200">
+          <div className="max-h-72 overflow-y-auto rounded-xl border border-line">
             <table className="w-full text-left text-xs">
-              <thead className="sticky top-0 bg-slate-50 text-[10px] uppercase tracking-wide text-slate-500">
+              <thead className="sticky top-0 bg-surface-2 text-[10px] uppercase tracking-wide text-ink-mute">
                 <tr>
                   <th className="px-2 py-1.5">Baris</th>
                   <th className="px-2 py-1.5">Keyword</th>
@@ -162,13 +162,13 @@ export function SheetPanel({ store }: { store: WhatsAutoStore }) {
                   <th className="px-2 py-1.5">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-line">
                 {sheetRules.map((rule) => (
                   <tr key={rule.id}>
-                    <td className="px-2 py-1.5 text-slate-400">{rule.row}</td>
-                    <td className="px-2 py-1.5 font-semibold text-slate-800">{rule.keyword}</td>
-                    <td className="px-2 py-1.5 text-slate-500">{rule.matchType}</td>
-                    <td className="max-w-[220px] truncate px-2 py-1.5 text-slate-600">{rule.reply}</td>
+                    <td className="px-2 py-1.5 text-ink-mute">{rule.row}</td>
+                    <td className="px-2 py-1.5 font-semibold text-ink">{rule.keyword}</td>
+                    <td className="px-2 py-1.5 text-ink-mute">{rule.matchType}</td>
+                    <td className="max-w-[220px] truncate px-2 py-1.5 text-ink-soft">{rule.reply}</td>
                     <td className="px-2 py-1.5">
                       <Badge tone={rule.active ? "emerald" : "slate"}>{rule.active ? "aktif" : "off"}</Badge>
                     </td>
@@ -190,34 +190,34 @@ export function SheetPanel({ store }: { store: WhatsAutoStore }) {
           <div className="space-y-3">
             <div>
               <div className="mb-1 flex items-center justify-between">
-                <span className="text-[11px] font-bold uppercase tracking-wide text-slate-500">
+                <span className="text-[11px] font-bold uppercase tracking-wide text-ink-mute">
                   Tab “Balasan” (aturan)
                 </span>
                 <Button variant="soft" onClick={() => void copy(SAMPLE_SHEET_CSV)}>
                   Salin CSV
                 </Button>
               </div>
-              <pre className="overflow-x-auto rounded-xl bg-slate-900 p-3 text-[11px] leading-relaxed text-emerald-100">
+              <pre className="overflow-x-auto rounded-xl bg-surface-3 p-3 text-[11px] leading-relaxed text-brand">
                 {SAMPLE_SHEET_CSV}
               </pre>
             </div>
             <div>
               <div className="mb-1 flex items-center justify-between">
-                <span className="text-[11px] font-bold uppercase tracking-wide text-slate-500">
+                <span className="text-[11px] font-bold uppercase tracking-wide text-ink-mute">
                   Tab “Parameter” (pengaturan)
                 </span>
                 <Button variant="soft" onClick={() => void copy(SAMPLE_SETTINGS_CSV)}>
                   Salin CSV
                 </Button>
               </div>
-              <pre className="overflow-x-auto rounded-xl bg-slate-900 p-3 text-[11px] leading-relaxed text-emerald-100">
+              <pre className="overflow-x-auto rounded-xl bg-surface-3 p-3 text-[11px] leading-relaxed text-brand">
                 {SAMPLE_SETTINGS_CSV}
               </pre>
             </div>
-            <p className="text-[11px] text-slate-500">
-              Kolom tambahan apa pun (mis. <code className="rounded bg-slate-100 px-1">produk</code>,{" "}
-              <code className="rounded bg-slate-100 px-1">harga</code>) otomatis menjadi variabel{" "}
-              <code className="rounded bg-slate-100 px-1">{"{produk}"}</code> di dalam teks balasan.
+            <p className="text-[11px] text-ink-mute">
+              Kolom tambahan apa pun (mis. <code className="rounded bg-surface-2 px-1">produk</code>,{" "}
+              <code className="rounded bg-surface-2 px-1">harga</code>) otomatis menjadi variabel{" "}
+              <code className="rounded bg-surface-2 px-1">{"{produk}"}</code> di dalam teks balasan.
             </p>
           </div>
         </Card>

@@ -80,13 +80,13 @@ export function SettingsPanel({ store }: { store: WhatsAutoStore }) {
             <Badge tone={backend.lastStatus === "error" ? "rose" : backend.lastStatus === "ok" ? "emerald" : "slate"}>
               {backend.lastStatus === "error" ? "gagal" : backend.lastStatus === "ok" ? "terhubung" : "menunggu"}
             </Badge>
-            <span className="text-slate-500">{backend.lastMessage}</span>
+            <span className="text-ink-mute">{backend.lastMessage}</span>
             {backend.lastSyncAt ? (
-              <span className="text-slate-400">
+              <span className="text-ink-mute">
                 · {new Date(backend.lastSyncAt).toLocaleTimeString("id-ID", { hour12: false })}
               </span>
             ) : null}
-            <span className="text-slate-400">· {state.backendRules.length} aturan backend</span>
+            <span className="text-ink-mute">· {state.backendRules.length} aturan backend</span>
           </div>
         </div>
       </Card>
@@ -146,8 +146,8 @@ export function SettingsPanel({ store }: { store: WhatsAutoStore }) {
                 onClick={() => toggleChannel(channel.id)}
                 className={`rounded-xl px-3 py-2 text-xs font-semibold transition ${
                   active
-                    ? "bg-emerald-600 text-white"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    ? "bg-brand-strong text-brand-ink"
+                    : "bg-surface-2 text-ink-soft hover:bg-surface-3"
                 }`}
               >
                 {channel.label}
@@ -155,7 +155,7 @@ export function SettingsPanel({ store }: { store: WhatsAutoStore }) {
             );
           })}
         </div>
-        <p className="mt-2 text-[11px] text-slate-500">
+        <p className="mt-2 text-[11px] text-ink-mute">
           Nama paket aplikasi sudah dipetakan di kode, jadi notifikasi dari aplikasi lain akan diabaikan.
         </p>
       </Card>
@@ -190,8 +190,8 @@ export function SettingsPanel({ store }: { store: WhatsAutoStore }) {
               onClick={() => updateSettings({ activeHours: { ...settings.activeHours, mode } })}
               className={`rounded-full px-3 py-1 text-[11px] font-semibold ${
                 settings.activeHours.mode === mode
-                  ? "bg-slate-900 text-white"
-                  : "bg-slate-100 text-slate-600"
+                  ? "bg-surface-3 text-brand-ink"
+                  : "bg-surface-2 text-ink-soft"
               }`}
             >
               {mode === "always" ? "24 jam" : "Jam tertentu"}

@@ -109,17 +109,17 @@ export function SimulatorPanel({ store }: { store: WhatsAutoStore }) {
               onClick={() => setChannel(item.id)}
               className={`rounded-full px-3 py-1 text-[11px] font-semibold transition ${
                 channel === item.id
-                  ? "bg-emerald-600 text-white"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  ? "bg-brand-strong text-brand-ink"
+                  : "bg-surface-2 text-ink-soft hover:bg-surface-3"
               }`}
             >
               {item.label}
             </button>
           ))}
-          <label className="ml-auto flex items-center gap-1.5 text-[11px] font-semibold text-slate-500">
+          <label className="ml-auto flex items-center gap-1.5 text-[11px] font-semibold text-ink-mute">
             <input
               type="checkbox"
-              className="h-3.5 w-3.5 accent-emerald-600"
+              className="h-3.5 w-3.5 accent-brand"
               checked={isFirstMessage}
               onChange={(event) => setIsFirstMessage(event.target.checked)}
             />
@@ -132,7 +132,7 @@ export function SimulatorPanel({ store }: { store: WhatsAutoStore }) {
               key={sample}
               type="button"
               onClick={() => void send(sample)}
-              className="rounded-lg bg-slate-100 px-2 py-1 text-[11px] font-medium text-slate-600 hover:bg-slate-200"
+              className="rounded-lg bg-surface-2 px-2 py-1 text-[11px] font-medium text-ink-soft hover:bg-surface-3"
             >
               {sample}
             </button>
@@ -141,7 +141,7 @@ export function SimulatorPanel({ store }: { store: WhatsAutoStore }) {
       </Card>
 
       <Card className="flex flex-col">
-        <div className="h-[320px] space-y-2 overflow-y-auto rounded-xl bg-slate-50 p-3">
+        <div className="h-[320px] space-y-2 overflow-y-auto rounded-xl bg-surface-2 p-3">
           {bubbles.map((bubble) => (
             <div
               key={bubble.id}
@@ -150,15 +150,15 @@ export function SimulatorPanel({ store }: { store: WhatsAutoStore }) {
               <div
                 className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm whitespace-pre-wrap ${
                   bubble.from === "user"
-                    ? "bg-emerald-600 text-white"
-                    : "bg-white text-slate-800 ring-1 ring-slate-200"
+                    ? "bg-brand-strong text-brand-ink"
+                    : "bg-surface text-ink ring-1 ring-line"
                 }`}
               >
                 {bubble.text}
                 {bubble.meta ? (
                   <span
                     className={`mt-1 block text-[10px] font-bold tracking-wide ${
-                      bubble.from === "user" ? "text-emerald-100" : "text-slate-400"
+                      bubble.from === "user" ? "text-brand" : "text-ink-mute"
                     }`}
                   >
                     {bubble.meta}
@@ -168,7 +168,7 @@ export function SimulatorPanel({ store }: { store: WhatsAutoStore }) {
             </div>
           ))}
           {busy ? (
-            <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
+            <div className="flex items-center gap-1.5 text-[11px] text-ink-mute">
               <Bot size={13} /> mesin sedang memproses…
             </div>
           ) : null}
