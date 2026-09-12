@@ -35,32 +35,32 @@ WARNING: Using flatDir should be avoided because it doesn't support any meta-dat
 > Task :app:processDebugNavigationResources
 > Task :app:generateDebugResValues
 > Task :capacitor-android:generateDebugResValues
-> Task :app:compileDebugNavigationResources
 > Task :capacitor-android:generateDebugResources
-> Task :capacitor-android:packageDebugResources
 > Task :capacitor-cordova-android-plugins:generateDebugResValues
 > Task :capacitor-cordova-android-plugins:generateDebugResources
+> Task :app:compileDebugNavigationResources
+> Task :app:generateDebugResources
+> Task :capacitor-android:packageDebugResources
 > Task :capacitor-cordova-android-plugins:packageDebugResources
 > Task :app:mapDebugSourceSetPaths
-> Task :app:generateDebugResources
 > Task :app:createDebugCompatibleScreenManifests
 > Task :app:extractDeepLinksDebug
 > Task :capacitor-android:extractDeepLinksDebug
 > Task :capacitor-android:processDebugManifest
 > Task :capacitor-cordova-android-plugins:extractDeepLinksDebug
-> Task :capacitor-cordova-android-plugins:processDebugManifest
 > Task :app:mergeDebugResources
-> Task :app:processDebugMainManifest
+> Task :capacitor-cordova-android-plugins:processDebugManifest
 > Task :app:packageDebugResources
 > Task :app:parseDebugLocalResources
+> Task :app:processDebugMainManifest
 > Task :app:processDebugManifest
 > Task :app:processDebugManifestForPackage
 > Task :capacitor-android:compileDebugLibraryResources
 > Task :capacitor-cordova-android-plugins:compileDebugLibraryResources
 > Task :capacitor-android:parseDebugLocalResources
 > Task :capacitor-cordova-android-plugins:parseDebugLocalResources
-> Task :capacitor-android:generateDebugRFile
 > Task :capacitor-cordova-android-plugins:generateDebugRFile
+> Task :capacitor-android:generateDebugRFile
 > Task :capacitor-android:javaPreCompileDebug
 > Task :app:processDebugResources
 
@@ -72,20 +72,18 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :capacitor-cordova-android-plugins:compileDebugJavaWithJavac NO-SOURCE
 > Task :capacitor-cordova-android-plugins:bundleLibCompileToJarDebug
 > Task :app:preDebugUnitTestBuild UP-TO-DATE
-> Task :app:javaPreCompileDebugUnitTest
 > Task :capacitor-android:bundleLibCompileToJarDebug
-> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:javaPreCompileDebugUnitTest
 > Task :app:compileDebugJavaWithJavac
 > Task :app:bundleDebugClassesToCompileJar
 > Task :app:bundleDebugClassesToRuntimeJar
 > Task :app:compileDebugUnitTestJavaWithJavac
+> Task :app:processDebugJavaRes NO-SOURCE
 > Task :app:processDebugUnitTestJavaRes NO-SOURCE
 > Task :capacitor-android:processDebugJavaRes NO-SOURCE
 > Task :capacitor-cordova-android-plugins:bundleLibRuntimeToJarDebug
-> Task :capacitor-cordova-android-plugins:processDebugJavaRes NO-SOURCE
-> Task :capacitor-android:preDebugUnitTestBuild UP-TO-DATE
 > Task :capacitor-android:bundleLibRuntimeToJarDebug
-> Task :capacitor-android:generateDebugUnitTestStubRFile
+> Task :capacitor-cordova-android-plugins:processDebugJavaRes NO-SOURCE
 
 > Task :app:testDebugUnitTest
 
@@ -115,19 +113,25 @@ ReplyEngineTest > matchesSheetRuleAndRendersVariables PASSED
 
 ReplyEngineTest > ruleChannelFilterIsRespected PASSED
 
+ReplyEngineTest > backendRulesAreLabelledAsBackend PASSED
+
 ReplyEngineTest > disabledChannelIsIgnored PASSED
 
 ReplyEngineTest > masterSwitchDisablesEverything PASSED
 
 ReplyEngineTest > inactiveRuleIsSkippedAndFallsBackToDefault PASSED
 
+ReplyEngineTest > sourceLabelMapsManualToRule PASSED
+
 ReplyEngineTest > higherPriorityWins PASSED
 
+> Task :capacitor-android:preDebugUnitTestBuild UP-TO-DATE
 > Task :capacitor-android:javaPreCompileDebugUnitTest
 > Task :capacitor-android:processDebugUnitTestJavaRes NO-SOURCE
+> Task :capacitor-cordova-android-plugins:preDebugUnitTestBuild UP-TO-DATE
+> Task :capacitor-android:generateDebugUnitTestStubRFile
 > Task :capacitor-android:compileDebugUnitTestJavaWithJavac NO-SOURCE
 > Task :capacitor-android:testDebugUnitTest NO-SOURCE
-> Task :capacitor-cordova-android-plugins:preDebugUnitTestBuild UP-TO-DATE
 > Task :capacitor-cordova-android-plugins:javaPreCompileDebugUnitTest
 > Task :capacitor-cordova-android-plugins:processDebugUnitTestJavaRes NO-SOURCE
 > Task :capacitor-cordova-android-plugins:generateDebugUnitTestStubRFile
@@ -142,7 +146,7 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 1m 28s
+BUILD SUCCESSFUL in 1m 17s
 53 actionable tasks: 53 executed
 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
 Daemon will be stopped at the end of the build 
@@ -242,16 +246,16 @@ WARNING: Using flatDir should be avoided because it doesn't support any meta-dat
 > Task :app:validateSigningDebug
 > Task :app:writeDebugAppMetadata
 > Task :app:writeDebugSigningConfigVersions
-> Task :app:mergeLibDexDebug
 > Task :capacitor-android:checkDebugAarMetadata
 > Task :capacitor-android:stripDebugDebugSymbols NO-SOURCE
+> Task :app:mergeLibDexDebug
 > Task :capacitor-android:copyDebugJniLibsProjectAndLocalJars
 > Task :capacitor-android:extractDebugAnnotations
-> Task :capacitor-android:extractDeepLinksForAarDebug
-> Task :capacitor-android:mergeDebugGeneratedProguardFiles
 > Task :app:packageDebug
 > Task :app:createDebugApkListingFileRedirect
 > Task :app:assembleDebug
+> Task :capacitor-android:extractDeepLinksForAarDebug
+> Task :capacitor-android:mergeDebugGeneratedProguardFiles
 > Task :capacitor-android:mergeDebugConsumerProguardFiles
 > Task :capacitor-android:prepareDebugArtProfile
 > Task :capacitor-android:prepareLintJarForPublish
@@ -273,8 +277,8 @@ WARNING: Using flatDir should be avoided because it doesn't support any meta-dat
 > Task :capacitor-cordova-android-plugins:bundleDebugAar
 > Task :capacitor-cordova-android-plugins:assembleDebug
 
-BUILD SUCCESSFUL in 1m 10s
+BUILD SUCCESSFUL in 46s
 93 actionable tasks: 49 executed, 44 up-to-date
 
-APK: 4250879 bytes
-SHA256: c2ddea119b9d2e1991196c2e332e5daf35abbf4a384c1c395eb9b0bf28471fcd
+APK: 4252923 bytes
+SHA256: ece58ac77bddbe345f3523571e6467b90f7cac56ccc7de3f5f253085b2b66057
