@@ -1,7 +1,0 @@
-{
-  "rules": {
-    "pilar_cooldown_days": 4,
-    "cta_cooldown_days": 2,
-    "topic_cooldown_days": 30
-  }
-}

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">WhatsAuto Sheet Sync</string>
+    <string name="title_activity_main">WhatsAuto Sheet Sync</string>
+    <string name="package_name">com.whatsauto.smartai</string>
+    <string name="custom_url_scheme">com.whatsauto.smartai</string>
+    <string name="notification_listener_label">WhatsAuto — baca pesan masuk</string>
+    <string name="accessibility_service_label">WhatsAuto — kirim balasan otomatis</string>
+    <string name="accessibility_service_description">Layanan ini mengetik dan mengirim balasan otomatis ke ruang chat (WhatsApp, Telegram, Instagram, SMS) berdasarkan aturan yang kamu sinkronkan dari Google Spreadsheet. Tidak ada data yang dikirim keluar perangkat selain permintaan ke spreadsheet/AI yang kamu atur sendiri.</string>
+</resources>
