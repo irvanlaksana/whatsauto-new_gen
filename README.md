@@ -34,15 +34,24 @@ npm test             # 27 unit test engine + parser sheet
 npm run build        # typecheck + bundle produksi ke dist/
 ```
 
-Membangun APK (butuh JDK 21 + Android SDK di mesin kamu):
+### APK jadi
+
+APK debug hasil build GitHub Actions ada di
+[`dist-apk/whatsauto-sheet-sync-debug.apk`](dist-apk/whatsauto-sheet-sync-debug.apk)
+(4,25 MB, debug-signed — tinggal install di HP Android, izinkan "sumber tidak dikenal").
+Setiap push ke branch ini membangun ulang APK dan memperbarui file tersebut lewat commit
+`chore(ci): publish APK + gradle log`.
+
+### Build sendiri (butuh JDK 21 + Android SDK)
 
 ```bash
 npm run android:sync   # build web + cap sync
 npm run android:apk    # gradlew assembleDebug → android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
-Atau lewat GitHub Actions: buka tab **Actions → Build Android APK → Run workflow**,
-lalu unduh artifact `whatsauto-sheet-sync-debug-apk`.
+Atau lewat GitHub Actions: tab **Actions → Build Android APK → Run workflow**.
+Workflow menjalankan: unit test TypeScript → build web → `cap sync` →
+**unit test Java native** → `assembleDebug`.
 
 ## Memakai spreadsheet sebagai sumber parameter
 
@@ -90,7 +99,7 @@ src/
     http.ts          HTTP lintas platform (native = tanpa CORS)
   state/useWhatsAuto.ts  satu sumber kebenaran state aplikasi
   components/*.tsx       panel UI (Simulator, Spreadsheet, Aturan, Kontak, Android, Log, Pengaturan)
-tests/                   unit test engine & parser sheet
+tests/                   29 unit test TS: engine, parser sheet, smoke test UI (jsdom)
 server/dev-server.ts     server opsional untuk mode web (proxy Gemini + static)
 android/app/src/main/java/com/whatsauto/smartai/
   engine/ReplyEngine.java           port Java dari engine.ts
@@ -99,11 +108,16 @@ android/app/src/main/java/com/whatsauto/smartai/
   plugin/AutoReplyStore.java        prefs + ring buffer event
   service/NotificationWatcherService.java
   service/ChatAutomationService.java
+android/app/src/test/java/.../engine/ReplyEngineTest.java   17 unit test JVM (tanpa emulator)
 ```
 
 > **Catatan penting.** `src/lib/engine.ts` dan `ReplyEngine.java` adalah dua implementasi
-> dari spesifikasi yang sama. Bila mengubah urutan logika di satu sisi, ubah juga di sisi
+> dari spesifikasi yang sama. Keduanya punya test sendiri (`tests/engine.test.ts` dan
+> `ReplyEngineTest.java`). Bila mengubah urutan logika di satu sisi, ubah juga di sisi
 > lainnya agar hasil simulator dan perangkat identik.
+>
+> Unit test Java berjalan di JVM biasa (tanpa emulator) lewat `./gradlew testDebugUnitTest`
+> dan dieksekusi otomatis oleh CI.
 
 ## Catatan keamanan & batasan
 

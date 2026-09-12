@@ -73,18 +73,18 @@ jobs:
           # Selaraskan dengan ujung branch DULU (agar tidak menimpa hasil build di bawah).
           git fetch origin "$GITHUB_REF_NAME" || true
           git reset --hard FETCH_HEAD || true
-          mkdir -p ci-debug
+          mkdir -p ci-debug dist-apk
           cp android/gradle.log ci-debug/gradle.log 2>/dev/null || echo "(log gradle tidak ada)" > ci-debug/gradle.log
           if [ -f android/app/build/outputs/apk/debug/app-debug.apk ]; then
-            cp android/app/build/outputs/apk/debug/app-debug.apk ci-debug/whatsauto-sheet-sync-debug.apk
+            cp android/app/build/outputs/apk/debug/app-debug.apk dist-apk/whatsauto-sheet-sync-debug.apk
             {
               echo
-              echo "APK: $(ls -l ci-debug/whatsauto-sheet-sync-debug.apk | awk '{print $5" bytes"}')"
-              echo "SHA256: $(sha256sum ci-debug/whatsauto-sheet-sync-debug.apk | awk '{print $1}')"
+              echo "APK: $(ls -l dist-apk/whatsauto-sheet-sync-debug.apk | awk '{print $5" bytes"}')"
+              echo "SHA256: $(sha256sum dist-apk/whatsauto-sheet-sync-debug.apk | awk '{print $1}')"
             } >> ci-debug/gradle.log
           fi
           cat ci-debug/gradle.log >> "$GITHUB_STEP_SUMMARY"
-          git add -f ci-debug/gradle.log ci-debug/whatsauto-sheet-sync-debug.apk 2>/dev/null || git add -f ci-debug/gradle.log
+          git add -f ci-debug/gradle.log dist-apk/whatsauto-sheet-sync-debug.apk 2>/dev/null || git add -f ci-debug/gradle.log
           git commit -m "chore(ci): publish APK + gradle log [skip ci]" || true
           git push origin "HEAD:$GITHUB_REF_NAME" || true
 
