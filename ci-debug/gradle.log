@@ -25,9 +25,9 @@ WARNING: Using flatDir should be avoided because it doesn't support any meta-dat
 > Task :capacitor-android:preBuild UP-TO-DATE
 > Task :capacitor-android:preDebugBuild UP-TO-DATE
 > Task :capacitor-android:writeDebugAarMetadata
+> Task :app:javaPreCompileDebug
 > Task :capacitor-cordova-android-plugins:preBuild UP-TO-DATE
 > Task :capacitor-cordova-android-plugins:preDebugBuild UP-TO-DATE
-> Task :app:javaPreCompileDebug
 > Task :capacitor-cordova-android-plugins:writeDebugAarMetadata
 > Task :capacitor-android:processDebugNavigationResources
 > Task :capacitor-cordova-android-plugins:processDebugNavigationResources
@@ -59,8 +59,8 @@ WARNING: Using flatDir should be avoided because it doesn't support any meta-dat
 > Task :capacitor-cordova-android-plugins:compileDebugLibraryResources
 > Task :capacitor-android:parseDebugLocalResources
 > Task :capacitor-cordova-android-plugins:parseDebugLocalResources
-> Task :capacitor-cordova-android-plugins:generateDebugRFile
 > Task :capacitor-android:generateDebugRFile
+> Task :capacitor-cordova-android-plugins:generateDebugRFile
 > Task :capacitor-android:javaPreCompileDebug
 > Task :app:processDebugResources
 
@@ -82,8 +82,10 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :app:processDebugUnitTestJavaRes NO-SOURCE
 > Task :capacitor-android:processDebugJavaRes NO-SOURCE
 > Task :capacitor-cordova-android-plugins:bundleLibRuntimeToJarDebug
-> Task :capacitor-android:bundleLibRuntimeToJarDebug
 > Task :capacitor-cordova-android-plugins:processDebugJavaRes NO-SOURCE
+> Task :capacitor-android:preDebugUnitTestBuild UP-TO-DATE
+> Task :capacitor-android:bundleLibRuntimeToJarDebug
+> Task :capacitor-android:generateDebugUnitTestStubRFile
 
 > Task :app:testDebugUnitTest
 
@@ -121,13 +123,11 @@ ReplyEngineTest > inactiveRuleIsSkippedAndFallsBackToDefault PASSED
 
 ReplyEngineTest > higherPriorityWins PASSED
 
-> Task :capacitor-android:preDebugUnitTestBuild UP-TO-DATE
 > Task :capacitor-android:javaPreCompileDebugUnitTest
 > Task :capacitor-android:processDebugUnitTestJavaRes NO-SOURCE
-> Task :capacitor-cordova-android-plugins:preDebugUnitTestBuild UP-TO-DATE
-> Task :capacitor-android:generateDebugUnitTestStubRFile
 > Task :capacitor-android:compileDebugUnitTestJavaWithJavac NO-SOURCE
 > Task :capacitor-android:testDebugUnitTest NO-SOURCE
+> Task :capacitor-cordova-android-plugins:preDebugUnitTestBuild UP-TO-DATE
 > Task :capacitor-cordova-android-plugins:javaPreCompileDebugUnitTest
 > Task :capacitor-cordova-android-plugins:processDebugUnitTestJavaRes NO-SOURCE
 > Task :capacitor-cordova-android-plugins:generateDebugUnitTestStubRFile
@@ -142,7 +142,7 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 1m 19s
+BUILD SUCCESSFUL in 1m 28s
 53 actionable tasks: 53 executed
 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
 Daemon will be stopped at the end of the build 
@@ -225,8 +225,8 @@ WARNING: Using flatDir should be avoided because it doesn't support any meta-dat
 > Task :capacitor-cordova-android-plugins:processDebugJavaRes NO-SOURCE
 > Task :app:mergeDebugJavaResource
 > Task :app:checkDebugDuplicateClasses
-> Task :app:mergeExtDexDebug
 > Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeExtDexDebug
 > Task :capacitor-cordova-android-plugins:bundleLibRuntimeToDirDebug
 > Task :capacitor-android:bundleLibRuntimeToDirDebug
 > Task :app:mergeProjectDexDebug
@@ -242,27 +242,27 @@ WARNING: Using flatDir should be avoided because it doesn't support any meta-dat
 > Task :app:validateSigningDebug
 > Task :app:writeDebugAppMetadata
 > Task :app:writeDebugSigningConfigVersions
+> Task :app:mergeLibDexDebug
 > Task :capacitor-android:checkDebugAarMetadata
 > Task :capacitor-android:stripDebugDebugSymbols NO-SOURCE
 > Task :capacitor-android:copyDebugJniLibsProjectAndLocalJars
-> Task :app:mergeLibDexDebug
 > Task :capacitor-android:extractDebugAnnotations
 > Task :capacitor-android:extractDeepLinksForAarDebug
 > Task :capacitor-android:mergeDebugGeneratedProguardFiles
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
 > Task :capacitor-android:mergeDebugConsumerProguardFiles
 > Task :capacitor-android:prepareDebugArtProfile
 > Task :capacitor-android:prepareLintJarForPublish
 > Task :capacitor-android:mergeDebugJavaResource
+> Task :capacitor-cordova-android-plugins:checkDebugAarMetadata
 > Task :capacitor-android:syncDebugLibJars
 > Task :capacitor-android:bundleDebugAar
 > Task :capacitor-android:assembleDebug
-> Task :capacitor-cordova-android-plugins:checkDebugAarMetadata
 > Task :capacitor-cordova-android-plugins:stripDebugDebugSymbols NO-SOURCE
 > Task :capacitor-cordova-android-plugins:copyDebugJniLibsProjectAndLocalJars
 > Task :capacitor-cordova-android-plugins:extractDebugAnnotations
-> Task :app:packageDebug
-> Task :app:createDebugApkListingFileRedirect
-> Task :app:assembleDebug
 > Task :capacitor-cordova-android-plugins:extractDeepLinksForAarDebug
 > Task :capacitor-cordova-android-plugins:mergeDebugGeneratedProguardFiles
 > Task :capacitor-cordova-android-plugins:mergeDebugConsumerProguardFiles
@@ -273,8 +273,8 @@ WARNING: Using flatDir should be avoided because it doesn't support any meta-dat
 > Task :capacitor-cordova-android-plugins:bundleDebugAar
 > Task :capacitor-cordova-android-plugins:assembleDebug
 
-BUILD SUCCESSFUL in 1m 15s
+BUILD SUCCESSFUL in 1m 10s
 93 actionable tasks: 49 executed, 44 up-to-date
 
 APK: 4250879 bytes
-SHA256: 06373d34b46ddf725ee4ef4927173fae9a011dbc4d620123541ad8077fe07d14
+SHA256: c2ddea119b9d2e1991196c2e332e5daf35abbf4a384c1c395eb9b0bf28471fcd
