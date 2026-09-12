@@ -1,8 +1,0 @@
-[
-  { "id": "t1", "sender": "Budi Santoso", "platform": "whatsapp", "incomingText": "Halo, selamat pagi", "replyText": "Halo! Terima kasih telah menghubungi kami. Ada yang bisa kami bantu?...", "timestamp": "2026-05-24T08:12:00Z" },
-  { "id": "t2", "sender": "Dewi Lestari", "platform": "telegram", "incomingText": "alamat kantor dimana ya?", "replyText": "Kantor Pusat kami beralamat di Gedung Tech Space Lt. 5, Jl. Sudirman No. 45, Jakarta Selatan.", "timestamp": "2026-05-24T09:44:00Z" },
-  { "id": "t3", "sender": "Rian Kusuma", "platform": "instagram", "incomingText": "apakah ada harga promo?", "replyText": "Mumpung hari ini, gunakan kode promo 'WAAUTO50' untuk tambahan diskon 50%...", "timestamp": "2026-05-24T11:05:00Z" },
-  { "id": "t4", "sender": "Siti Rahma", "platform": "whatsapp", "incomingText": "Mau beli Premium dong", "replyText": "Terima kasih! Silakan lakukan pembayaran Anda melalui tautan berikut: https://whatsauto.ai/...", "timestamp": "2026-05-24T14:20:00Z" },
-  { "id": "t5", "sender": "Spam Bot", "platform": "whatsapp", "incomingText": "KLIK LINK DIBAWAH !!", "replyText": "[IGNORED: Sender is blacklisted]", "timestamp": "2026-05-24T15:00:00Z" },
-  { "id": "t6", "sender": "Eko Prasetyo", "platform": "whatsapp", "incomingText": "1", "replyText": "Berikut adalah Layanan Utama kami:\n\n* WhatsAuto Suite (Auto-responder otomatis...)", "timestamp": "2026-05-25T01:10:00Z" }
-]

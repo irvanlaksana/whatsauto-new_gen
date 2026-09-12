@@ -1,8 +1,70 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700;800&family=Playfair+Display:ital,wght@1,400;1,700;1,900&display=swap');
 @import "tailwindcss";
 
+/**
+ * Tema: dark soft.
+ * Palet sengaja bernuansa rendah saturasi (charcoal kebiruan + sage, sand,
+ * dusty rose, dusty blue) agar nyaman dilihat lama dan tidak mencolok.
+ * Ubah nilai di sini saja — semua komponen memakai token ini.
+ */
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  /* Latar & permukaan */
+  --color-base: #14161a; /* latar aplikasi */
+  --color-surface: #1b1e24; /* kartu */
+  --color-surface-2: #21252c; /* blok sekunder */
+  --color-surface-3: #282d35; /* chip aktif, toast, kode */
+
+  /* Garis */
+  --color-line: #2f343d;
+  --color-line-strong: #3c434e;
+
+  /* Teks */
+  --color-ink: #d9dee6;
+  --color-ink-soft: #a3acba;
+  --color-ink-mute: #757e8c;
+
+  /* Aksen utama: sage lembut */
+  --color-brand: #86b0a2;
+  --color-brand-strong: #3a5c53;
+  --color-brand-hover: #466b62;
+  --color-brand-soft: #23312e;
+  --color-brand-ink: #e7efeb;
+
+  /* Semantik (muted) */
+  --color-warn: #c9a97e;
+  --color-warn-soft: #2d2820;
+  --color-danger: #c98f8f;
+  --color-danger-soft: #2e2224;
+  --color-info: #8fa9c4;
+  --color-info-soft: #212a33;
+
+  --font-sans: ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, monospace;
+}
+
+html {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-base);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar senada tema */
+* {
+  -webkit-tap-highlight-color: transparent;
+  scrollbar-color: var(--color-line-strong) transparent;
+}
+
+::selection {
+  background: var(--color-brand-strong);
+  color: var(--color-brand-ink);
 }
