@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, Key } from "react";
 
 /** Komponen UI kecil yang dipakai di semua panel. */
 
@@ -134,6 +134,7 @@ export function Badge({
 }: {
   children: ReactNode;
   tone?: "slate" | "emerald" | "amber" | "rose" | "sky";
+  key?: Key;
 }) {
   const tones: Record<string, string> = {
     slate: "bg-surface-2 text-ink-soft",

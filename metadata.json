@@ -1,0 +1,6 @@
+{
+  "name": "WhatsAuto Sheet Sync",
+  "description": "Auto-reply WhatsApp dan Telegram dengan parameter dan aturan balasan tersinkronisasi dari Google Spreadsheet.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

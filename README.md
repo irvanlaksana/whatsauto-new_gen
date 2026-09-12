@@ -35,13 +35,16 @@ npm test             # 36 unit test (engine, parser sheet, backend, UI)
 npm run build        # typecheck + bundle produksi ke dist/
 ```
 
-### APK jadi
+### APK jadi & Kompatibilitas Android
 
-APK debug hasil build GitHub Actions ada di
-[`dist-apk/whatsauto-sheet-sync-debug.apk`](dist-apk/whatsauto-sheet-sync-debug.apk)
-(4,25 MB, debug-signed — tinggal install di HP Android, izinkan "sumber tidak dikenal").
-Setiap push ke branch ini membangun ulang APK dan memperbarui file tersebut lewat commit
-`chore(ci): publish APK + gradle log`.
+APK debug hasil build GitHub Actions tersedia di:
+- **Direct Download (Raw)**: [Download APK Langsung](https://github.com/irvanlaksana/whatsauto-new_gen/raw/main/dist-apk/whatsauto-sheet-sync-debug.apk)
+- **Path file di repo**: [`dist-apk/whatsauto-sheet-sync-debug.apk`](dist-apk/whatsauto-sheet-sync-debug.apk)
+
+> **Catatan Instalasi & Perbaikan "Error Parsing Paket"**:
+> - **Kompatibilitas**: Mendukung Android 7.0 (Nougat, API 24) hingga Android 15 (Vanilla Ice Cream, API 35).
+> - **Penyebab Error Parsing Sebelumnya**: Sebelumnya APK dikompilasi dengan SDK 36 (Android 16 Developer Preview) dengan codename `"16"`, sehingga ditolak oleh PackageInstaller pada perangkat Android rilis resmi (Android 14 & 15). Selain itu, signing debug dikonfigurasi ulang agar memuat tanda tangan ganda **V1 (JAR Signature)** dan **V2 (Full APK Signature)** serta deklarasi `<queries>` untuk kompatibilitas Android 11+.
+> - Pastikan mengaktifkan izin **"Install unknown apps" / "Pasang aplikasi dari sumber tak dikenal"** pada aplikasi pengelola berkas atau browser di ponsel Anda.
 
 ### Build sendiri (butuh JDK 21 + Android SDK)
 
