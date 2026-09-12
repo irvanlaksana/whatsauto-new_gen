@@ -68,18 +68,22 @@ jobs:
       - name: Publish build output to branch
         if: always()
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Selaraskan dengan ujung branch DULU (agar tidak menimpa hasil build di bawah).
+          git fetch origin "$GITHUB_REF_NAME" || true
+          git reset --hard FETCH_HEAD || true
           mkdir -p ci-debug
           cp android/gradle.log ci-debug/gradle.log 2>/dev/null || echo "(log gradle tidak ada)" > ci-debug/gradle.log
           if [ -f android/app/build/outputs/apk/debug/app-debug.apk ]; then
             cp android/app/build/outputs/apk/debug/app-debug.apk ci-debug/whatsauto-sheet-sync-debug.apk
-            ls -l ci-debug/whatsauto-sheet-sync-debug.apk >> ci-debug/gradle.log
+            {
+              echo
+              echo "APK: $(ls -l ci-debug/whatsauto-sheet-sync-debug.apk | awk '{print $5" bytes"}')"
+              echo "SHA256: $(sha256sum ci-debug/whatsauto-sheet-sync-debug.apk | awk '{print $1}')"
+            } >> ci-debug/gradle.log
           fi
           cat ci-debug/gradle.log >> "$GITHUB_STEP_SUMMARY"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # Selaraskan dengan ujung branch (commit CI sebelumnya) sebelum commit.
-          git fetch origin "$GITHUB_REF_NAME" || true
-          git reset --hard FETCH_HEAD || true
           git add -f ci-debug/gradle.log ci-debug/whatsauto-sheet-sync-debug.apk 2>/dev/null || git add -f ci-debug/gradle.log
           git commit -m "chore(ci): publish APK + gradle log [skip ci]" || true
           git push origin "HEAD:$GITHUB_REF_NAME" || true
